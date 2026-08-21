@@ -1,0 +1,206 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  align-items: stretch;
+}
+
+/* ---- App shell: sidebar + (topbar over scrolling canvas) ---- */
+.shell {
+  display: flex;
+  height: 100vh;
+}
+.mainCol {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---- Canvas (live preview) ---- */
+.canvas {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface-page);
+  padding: 24px 32px 32px;
+  overflow: auto;
+}
+.canvasInner {
+  width: 100%;
+  max-width: 1592px; /* matches the Figma Content Wrapper width */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* ---- Dashboard (Content Wrapper replica) ---- */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.greetingTitle {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  color: var(--text-heading-1);
+}
+.greetingSub {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: var(--text-body);
+}
+.dailyRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px; /* Recently Updated ↔ Agenda */
+  align-items: start;
+  /* 16px below the daily row before the categories (section gap is 24, pull up 8) */
+  margin-bottom: -8px;
+}
+.contextGrid {
+  display: flex;
+  flex-direction: column;
+  /* categories → context cards = 16px: section gap 24 + row pad-top 4 = 28 to the
+     card, so pull the grid up 12 to land at 16 (shadow room + row spacing intact) */
+  margin-top: -12px;
+  /* cancel the row's 4px left padding (shadow room) so the card's visible left
+     edge aligns with the heading / filter bar instead of sitting 4px inset */
+  margin-left: -4px;
+  gap: 0; /* row vertical padding provides the inter-row spacing (32px) */
+  /* row 1 fully visible + a peek of row 2 → vertical scroll reveals row 2.
+     Taller than the cards so the hover drop-shadow isn't clipped at the edge. */
+  max-height: 460px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+/* Category tabs have no greeting/daily cards above, so show both card rows in
+   full instead of the dashboard's capped peek-and-scroll. */
+.contextGridFull {
+  max-height: none;
+  overflow-y: visible;
+}
+.contextRow {
+  display: flex;
+  gap: 16px; /* gap between context cards in a row */
+  overflow-x: auto;
+  /* padding gives the card hover drop-shadow room to render inside the
+     overflow box (overflow:auto clips anything outside it) */
+  padding: 4px 4px 28px;
+  flex-shrink: 0; /* keep natural height so the grid overflows → vertical scroll */
+}
+/* Row-to-row gap = 16px: rows are 28(pad-bottom)+4(pad-top)=32 apart, so pull each
+   subsequent row up 16 — keeps the hover shadow room, just tightens the visual gap. */
+.contextRow:not(:first-child) {
+  margin-top: -16px;
+}
+.contextCell {
+  flex: none;
+  width: 460px;
+  max-width: 88vw;
+  /* stretch the card to the row-equalised cell height so cards in a row match */
+  display: flex;
+}
+.contextCell > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-8);
+}
+.tab {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--border-default);
+  background: var(--surface-raised);
+  border-radius: var(--radius-8);
+  color: var(--text-body);
+}
+.tabActive {
+  border-color: var(--accent-default);
+  color: var(--accent-default);
+  background: var(--accent-hover);
+}
+
+/* ---- Controls panel ---- */
+.controls {
+  width: 340px;
+  flex: none;
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border-default);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow: auto;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.brandTitle { color: var(--text-heading-1); }
+.brandSub { color: var(--text-subheading); }
+
+.sectionTitle {
+  color: var(--text-heading-1);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.fieldLabel { color: var(--text-heading-2); }
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: var(--space-8);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-4);
+  background: var(--surface-raised);
+  color: var(--text-heading-1);
+  font-size: 14px;
+  line-height: 20px;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--accent-default);
+}
+.textarea { resize: vertical; min-height: 76px; }
+
+.checkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--text-body);
+}
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+.rangeRow input { flex: 1; }
+.rangeValue { color: var(--text-subheading); min-width: 20px; text-align: right; }

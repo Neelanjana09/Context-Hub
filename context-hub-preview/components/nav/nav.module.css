@@ -1,0 +1,170 @@
+/* ============================================================
+   Sidebar
+   ============================================================ */
+.sidebar {
+  width: 264px;
+  flex: none;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: var(--surface-raised);
+  border-right: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px 16px;
+  overflow-y: auto;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+}
+.logoMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-default);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 17px;
+  flex: none;
+}
+.logoText {
+  color: var(--text-heading-1);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+}
+.nav,
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-subheading);
+  padding: 0 12px;
+  margin-bottom: 4px;
+}
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--text-body);
+  font-weight: 500; /* tabs are Medium (Figma), not regular */
+  text-decoration: none;
+  cursor: pointer;
+  /* rendered as a <button> — strip native chrome, fill the sidebar width */
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+/* hover = transient pointer feedback only */
+.navItem:hover {
+  background: var(--surface-page);
+}
+/* selected = the persistent active tab (distinct from hover) */
+.navItemActive,
+.navItemActive:hover {
+  background: var(--accent-hover);
+  color: var(--accent-default);
+}
+.navItem svg {
+  flex: none;
+}
+
+/* ============================================================
+   Top bar
+   ============================================================ */
+.topbar {
+  height: 62px; /* kept at 62 per user (Figma navbar is 72) */
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 24px 0 32px; /* avatar sits 24px from the right edge (Figma) */
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.search {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface-page); /* #f9f9f9 filled, no border (Figma) */
+  border-radius: var(--radius-4);
+  color: var(--text-subheading);
+}
+.search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-heading-1);
+}
+.search input::placeholder {
+  color: var(--text-subheading);
+}
+.topActions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.createBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #305fd5; /* Figma Create button */
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-4);
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: var(--space-12); /* Create → icons = 24px (12 margin + 12 gap) */
+}
+.createBtn:hover {
+  filter: brightness(0.95);
+}
+.iconBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-4);
+  border: none;
+  background: transparent;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconBtn:hover {
+  background: var(--surface-page);
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(135deg, #f6caa8, #b07d54);
+}

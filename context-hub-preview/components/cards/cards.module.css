@@ -1,0 +1,303 @@
+/* ============================================================
+   Shared card shell (Daily cards + Context card)
+   ============================================================ */
+.card {
+  width: 100%;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-8);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+/* Context card only — real mouse hover + forced state both raise the accent border */
+.ctxCard {
+  padding: var(--space-12) var(--space-16); /* 12 vertical / 16 horizontal (Figma 429:6161) */
+  gap: var(--space-8); /* vertical spacing between the card's blocks */
+  transition: border-color 0.12s ease, border-width 0.12s ease, box-shadow 0.12s ease;
+}
+/* Title-row + meta-row grouped with an 8px gap (Figma 679:1573) */
+.ctxTitleMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+/* Daily cards (Recently Updated / Agenda) get the same hover treatment */
+.dailyCard {
+  transition: border-color 0.12s ease, border-width 0.12s ease, box-shadow 0.12s ease;
+}
+/* Hover (real + forced): thicker 1.5px accent outline + layered drop shadow
+   (Figma node 894:8719). box-sizing:border-box keeps the outer size stable. */
+.card[data-hover="true"],
+.ctxCard:hover,
+.dailyCard:hover {
+  border-color: var(--accent-default);
+  border-width: 1.5px;
+  box-shadow:
+    0px 12px 13.5px rgba(0, 0, 0, 0.1),
+    0px 50px 25px rgba(0, 0, 0, 0.09),
+    0px 112px 33.5px rgba(0, 0, 0, 0.05),
+    0px 200px 40px rgba(0, 0, 0, 0.01);
+}
+
+/* Whole-card click target → detail screen. The overlay captures clicks on
+   non-interactive areas; the menu and note input are raised above it. */
+.linkable {
+  position: relative;
+  cursor: pointer;
+}
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.linkable .ctxHeaderMeta,
+.linkable .ctxNote,
+.linkable .ctxNotes {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Daily card header (icon + title) ---- */
+.dailyHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--text-heading-1);
+}
+.headerIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-default);
+}
+
+.rowList {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   Recently Updated row — grid so citation pills + times align
+   in fixed columns regardless of title length
+   ============================================================ */
+.ruRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 36px;
+  padding: var(--space-4) 0;
+}
+.rowList > .ruRow:not(:last-child),
+.rowList > .agRow:not(:last-child) {
+  border-bottom: 1px solid var(--border-default);
+}
+.ruTitle {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-heading-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* citation pill + time as a tight pair: pill sits 4px from the time text */
+.ruTail {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ruTime {
+  flex: none;
+  width: 68px;
+  text-align: right;
+}
+
+/* ============================================================
+   Agenda row
+   ============================================================ */
+.agRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 36px;
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-4);
+  transition: background 0.12s ease;
+}
+.agRow:hover,
+.agRow[data-state="hover"] { background: var(--surface-page); }
+.agTask {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-heading-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.agRow[data-state="strikethrough"] .agTask {
+  text-decoration: line-through;
+  color: var(--text-subheading);
+}
+.agRight { flex: none; display: flex; align-items: center; }
+.agTime { text-align: right; }
+/* Hover swaps the time for the check / delete actions */
+.agRow:hover .agTime,
+.agRow[data-state="hover"] .agTime { display: none; }
+.agActions {
+  display: none;
+  align-items: center;
+  gap: var(--space-4);
+}
+.agRow:hover .agActions,
+.agRow[data-state="hover"] .agActions { display: flex; }
+.agActionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-4);
+}
+.agActionBtn:hover { background: var(--border-default); }
+.agCheck { color: var(--status-ongoing); }
+.agDelete { color: var(--red-500); }
+
+/* ============================================================
+   Context card
+   ============================================================ */
+.ctxHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12); /* title ↔ badges (Figma 413:5539) */
+}
+.ctxTitle {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-heading-2); /* #2d3539 (Figma 377:502) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ctxHeaderMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8); /* priority · status · ⋮ menu (Figma 409:5500) — was 4, widened so badges aren't clamped */
+  flex: none;
+}
+.ctxMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  color: var(--text-subheading);
+}
+.metaIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--icon-default);
+  flex: none;
+}
+
+.ctxDesc {
+  color: var(--text-body);
+  cursor: pointer;
+  outline: none;
+}
+.ctxDescClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ctxSources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8); /* Source(s) label ↔ pills */
+}
+.ctxSourcesLabel { color: var(--text-heading-1); }
+.ctxPills {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: nowrap;
+}
+.ctxPills > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ctxNote {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-default);
+  /* in equal-height cards (flex column), pin the note footer to the bottom so
+     "Write a Note" rows align across cards; no-op inside the detail card's
+     non-flex .detailNote wrapper */
+  margin-top: auto;
+}
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(135deg, #f6caa8, #b07d54);
+  object-fit: cover;
+}
+.noteInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  border-bottom: 1px solid var(--border-default);
+  outline: none;
+  background: transparent;
+  color: var(--text-heading-1);
+  padding: 4px 0;
+  transition: border-color 0.12s ease;
+}
+.noteInput::placeholder {
+  color: var(--text-subheading);
+}
+.noteInput:focus,
+.noteInputFocused {
+  border-bottom-color: var(--border-strong);
+}
+
+/* ---- Note(s) — saved notes list ---- */
+.ctxNotes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-default);
+}
+.ctxNotesLabel {
+  color: var(--text-heading-1);
+}
+.noteRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+.noteRowText {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-body);
+}
+.noteRowTime {
+  flex: none;
+  white-space: nowrap;
+  color: var(--text-subheading);
+}

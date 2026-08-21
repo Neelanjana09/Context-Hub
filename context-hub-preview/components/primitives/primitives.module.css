@@ -1,0 +1,136 @@
+/* ---- SourceIcon (real brand logo PNG) ---- */
+.sourceIcon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex: none;
+  display: block;
+}
+.sourceIconFallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-4);
+  background: var(--neutral-200);
+  color: var(--text-body);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  flex: none;
+  user-select: none;
+}
+
+/* ---- CitationPill ---- */
+.citationPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-2) var(--space-8);
+  background: var(--surface-page);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-4);
+  color: var(--text-body);
+  white-space: nowrap;
+  flex: none;
+}
+.citationIcon { display: inline-flex; color: var(--icon-default); }
+
+/* ---- SourceCitationPill (app icon + source title, truncating) ---- */
+.sourcePill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-width: 0;
+  padding: var(--space-2) var(--space-8);
+  background: var(--surface-page);
+  border-radius: var(--radius-4);
+  color: var(--text-body);
+}
+.sourcePillLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- PriorityBadge ---- */
+.priority {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex: none;
+}
+.priorityLabel { color: var(--text-heading-2); }
+.priority[data-level="high"]   { --flag: var(--priority-high); }
+.priority[data-level="medium"] { --flag: var(--priority-medium); }
+.priority[data-level="low"]    { --flag: var(--priority-low); }
+.priorityFlag { color: var(--flag); display: inline-flex; }
+
+/* ---- StatusBadge ---- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-4);
+  flex: none;
+}
+.status[data-status="ongoing"]  { background: var(--status-ongoing);  color: var(--text-inverse); }
+.status[data-status="paused"]   { background: var(--status-paused);   color: var(--text-heading-1); }
+.status[data-status="archived"] { background: var(--status-archived); color: var(--text-heading-1); }
+.status[data-status="default"]  { background: var(--status-default);  color: var(--text-heading-1); }
+
+/* ---- TickMark ---- */
+.tick { display: inline-flex; flex: none; }
+
+/* ---- TimeLabel ---- */
+.time { color: var(--text-subheading); white-space: nowrap; flex: none; }
+
+/* ---- IconButton (three-dot menu) ---- */
+.iconButtonWrap { position: relative; display: inline-flex; flex: none; }
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-4);
+  border: none;
+  background: transparent;
+  color: var(--text-heading-2);
+}
+.iconButton:hover { background: var(--surface-page); }
+.iconButton[data-open="true"] { background: var(--accent-hover); color: var(--accent-default); }
+
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  min-width: 184px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-8);
+  padding: var(--space-6);
+  box-shadow: 0 8px 24px rgba(10, 12, 16, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  border-radius: var(--radius-4);
+  border: none;
+  background: transparent;
+  color: var(--text-heading-1);
+  text-align: left;
+  width: 100%;
+}
+.menuItem:hover { background: var(--surface-page); }
+.menuItem svg { color: var(--accent-default); }
+.menuItemDanger { color: var(--red-500); }
+.menuItemDanger svg { color: var(--red-500); }

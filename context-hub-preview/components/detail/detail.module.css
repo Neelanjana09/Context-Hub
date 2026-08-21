@@ -1,0 +1,213 @@
+/* ============================================================
+   Context detail (2nd screen) — breadcrumb + two columns + footer
+   ============================================================ */
+.detailInner {
+  width: 100%;
+  max-width: 1592px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---- Breadcrumb ---- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.crumb {
+  color: var(--text-body);
+}
+.crumbLink {
+  cursor: pointer;
+}
+.crumbLink:hover {
+  color: var(--accent-default);
+  text-decoration: underline;
+}
+.crumbActive {
+  color: var(--accent-default);
+  font-weight: 500;
+}
+.crumbSep {
+  display: inline-flex;
+  color: var(--text-subheading);
+}
+
+/* ---- Two-column body ---- */
+/* Figma proportions: main card 860 vs sub-card column 589 (main is wider). */
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 860fr) minmax(0, 589fr);
+  gap: 32px;
+  align-items: stretch;
+}
+@media (max-width: 1180px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Left detail card fills the column so it reads as a tall panel */
+.detailCard {
+  min-height: 560px;
+  padding: var(--space-12) var(--space-16); /* 12 vertical / 16 horizontal (Figma 429:6161) */
+  gap: var(--space-8); /* vertical spacing between the card's blocks */
+}
+.detailDesc {
+  color: var(--text-body);
+}
+/* Source pills in one truncating row (matches Figma's equal-width pills) */
+.detailPills {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: nowrap;
+}
+.detailPills > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.detailNote {
+  /* sits right below the sources so entered comments have room to stack below */
+}
+
+/* ---- Right column: sub cards, chained by connector blocks ---- */
+.subCards {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* connector elements provide the vertical spacing */
+  min-width: 0;
+}
+.subCard {
+  position: relative;
+  gap: var(--space-12); /* Context Sub Card own spec (Figma Slot gap 12) */
+  padding: var(--space-16); /* 16 all (Figma Frame 95) */
+}
+
+/* Horizontal "neck" bridging the main card → first sub-card (Figma Rect 37):
+   a white throat that opens each card's border in the centre so the two cards
+   read as linked, with grey top/bottom walls continuing the outline. */
+.subCardFirst::before {
+  content: "";
+  position: absolute;
+  left: -33px;              /* 32px column gap + 1px into the main card */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;              /* gap + 1px overlap into each card */
+  height: 16px;
+  background: var(--surface-raised);
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  z-index: 2;              /* above both cards to cover their borders */
+}
+@media (max-width: 1180px) {
+  .subCardFirst::before {
+    display: none;
+  }
+}
+
+/* Vertical "neck" chaining one sub-card to the next (Figma Rect 38–40):
+   white throat overlapping both cards + grey side walls = continuous outline. */
+.connector {
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;              /* paint above the cards so the throat opens the border */
+}
+.connectorBar {
+  width: 16px;
+  height: 26px;            /* 24px gap + 1px overlap into each card */
+  margin: -1px 0;
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border-default);
+  border-right: 1px solid var(--border-default);
+}
+.subHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-width: 0;
+}
+.subTitle {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-heading-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.subMetaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16); /* Context Sub Card own spec (Figma Frame 92 gap 16) */
+  flex-wrap: nowrap; /* single line like Figma (horizontal auto-layout) */
+}
+.subMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  color: var(--text-subheading);
+  white-space: nowrap;
+  flex: none;
+}
+.subMetaIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--icon-default);
+  flex: none;
+}
+.subDesc {
+  color: var(--text-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* Un-clamp the description when "View Details" is toggled open */
+.subDescOpen {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.viewDetails {
+  /* rendered as a <button> — strip native chrome */
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: var(--accent-default);
+  font-weight: 500;
+  cursor: pointer;
+  width: fit-content;
+}
+.viewDetails:hover {
+  text-decoration: underline;
+}
+
+/* "+N more" collapsed card */
+.moreCard {
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-16);
+}
+.moreLink {
+  /* rendered as a <button> — strip native chrome */
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-default);
+  font-weight: 500;
+  cursor: pointer;
+}
+.moreLink:hover {
+  text-decoration: underline;
+}

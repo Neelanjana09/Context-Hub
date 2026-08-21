@@ -1,0 +1,82 @@
+/* ============================================================
+   GLOBAL DESIGN TOKENS — mirror of the Figma variable system
+   (Phases 1–5). Two tiers: primitives hold values, semantics
+   alias primitives via var() — exactly like Figma aliases.
+   ============================================================ */
+:root {
+  /* ---- Primitives: Neutrals ---- */
+  --neutral-50:  #ffffff;
+  --neutral-100: #f9f9f9;
+  --neutral-200: #ebecf0;
+  --neutral-500: #747474;
+  --neutral-600: #4d5156;
+  --neutral-700: #2d3539;
+  --neutral-900: #0a0c10;
+
+  /* ---- Primitives: Accent (brand blue) ---- */
+  --accent-100: #e6f4ff;
+  --accent-600: #2252d3;
+
+  /* ---- Primitives: Status hues ---- */
+  --red-500:   #c32c2f;
+  --amber-400: #ffc43e;
+  --green-500: #36b37e;
+  --peach-200: #ffd2c1;
+  --sky-200:   #c0dfff;
+  --pink-200:  #f9c6d7;
+
+  /* ---- Semantic: Text ---- */
+  --text-heading-1:  var(--neutral-900);
+  --text-heading-2:  var(--neutral-700);
+  --text-subheading: var(--neutral-500);
+  --text-body:       var(--neutral-600);
+  --text-inverse:    var(--neutral-50);
+
+  /* ---- Semantic: Surface ---- */
+  --surface-page:   var(--neutral-100);
+  --surface-raised: var(--neutral-50);
+
+  /* ---- Semantic: Border ---- */
+  --border-default: var(--neutral-200);
+  --border-strong:  var(--neutral-700);
+  /* connector blocks that chain the detail card to its sub-cards */
+  --connector: #d7dae0;
+
+  /* ---- Semantic: Icon ---- */
+  --icon-default: var(--neutral-600);
+
+  /* ---- Semantic: Accent ---- */
+  --accent-default: var(--accent-600);
+  --accent-hover:   var(--accent-100);
+
+  /* ---- Semantic: Priority (icon tint) ---- */
+  --priority-high:   var(--red-500);
+  --priority-medium: var(--amber-400);
+  --priority-low:    var(--green-500);
+
+  /* ---- Semantic: Status (pill background) ---- */
+  --status-ongoing:  var(--green-500);
+  --status-paused:   var(--peach-200);
+  --status-archived: var(--sky-200);
+  --status-default:  var(--pink-200);
+  /* soft tint used behind a completed/selected tick */
+  --status-ongoing-soft: #e0fff2;
+
+  /* ---- Spacing scale ---- */
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+
+  /* ---- Radius scale ---- */
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+
+  /* ---- Font family (Google Sans is proprietary; Inter is the
+         swappable fallback loaded via next/font) ---- */
+  --font-family: "Google Sans", var(--font-inter), system-ui, -apple-system, sans-serif;
+}

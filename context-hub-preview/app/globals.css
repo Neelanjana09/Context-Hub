@@ -1,0 +1,30 @@
+@import "./tokens.css";
+
+/* ---- Minimal reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html, body { max-width: 100%; }
+body {
+  font-family: var(--font-family);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+ul { list-style: none; }
+
+/* ============================================================
+   Typography — the 9 Figma text styles (Google Sans)
+   weights: Regular 400 · Medium 500 · Bold 700
+   ============================================================ */
+.type-h1          { font-size: 28px; line-height: 30px; font-weight: 500; }
+.type-h2          { font-size: 18px; line-height: 20px; font-weight: 700; }
+.type-subheading  { font-size: 18px; line-height: 20px; font-weight: 400; }
+.type-body1-bold  { font-size: 16px; line-height: 20px; font-weight: 700; }
+.type-body1-medium{ font-size: 16px; line-height: 20px; font-weight: 500; }
+.type-body1       { font-size: 16px; line-height: 22px; font-weight: 400; }
+.type-body2       { font-size: 14px; line-height: 20px; font-weight: 400; }
+.type-pill-medium { font-size: 12px; line-height: 20px; font-weight: 500; }
+.type-pill        { font-size: 12px; line-height: 20px; font-weight: 400; }

@@ -1,0 +1,23 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+  /* cancel the first filter button's 8px left padding so the "Category:" text
+     aligns with the heading / card left edge instead of sitting 8px inset */
+  margin-left: calc(-1 * var(--space-8));
+}
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-8);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-4);
+  color: var(--text-subheading);
+}
+.filter:hover { background: var(--surface-page); }
+.filterLabel { color: var(--text-subheading); }
+.filterValue { color: var(--accent-default); }
+.filter svg { color: var(--text-subheading); }
