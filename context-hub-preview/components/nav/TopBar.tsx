@@ -1,4 +1,4 @@
-import { SearchIcon, BellIcon, HelpIcon, PlusIcon } from "@/components/primitives/Icons";
+import { SearchIcon, BellIcon, HelpIcon } from "@/components/primitives/Icons";
 import styles from "./nav.module.css";
 
 export default function TopBar() {
@@ -9,9 +9,6 @@ export default function TopBar() {
         <input placeholder="Search by title or keyword" />
       </div>
       <div className={styles.topActions}>
-        <button type="button" className={styles.createBtn}>
-          <PlusIcon /> Create
-        </button>
         <button type="button" className={styles.iconBtn} aria-label="Help">
           <HelpIcon />
         </button>
